@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="projetoBanco" />
+        <module name="projeto05" />
+        <module name="java2backend" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="API_Serratec" target="17" />
+      <module name="java2backend" target="17" />
+      <module name="projeto05" target="17" />
+      <module name="projetoBanco" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="java2backend" options="-parameters" />
+      <module name="projeto05" options="-parameters" />
+      <module name="projetoBanco" options="-parameters" />
+    </option>
+  </component>
+</project>

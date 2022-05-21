@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/java2backend/java2backend.iml" filepath="$PROJECT_DIR$/java2backend/java2backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/projeto05/projeto05.iml" filepath="$PROJECT_DIR$/projeto05/projeto05.iml" />
+      <module fileurl="file://$PROJECT_DIR$/projetoBanco/projetoBanco.iml" filepath="$PROJECT_DIR$/projetoBanco/projetoBanco.iml" />
+    </modules>
+  </component>
+</project>
