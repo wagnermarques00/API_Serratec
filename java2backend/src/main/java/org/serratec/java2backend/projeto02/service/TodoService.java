@@ -1,7 +1,9 @@
 package org.serratec.java2backend.projeto02.service;
 
+import org.serratec.java2backend.projeto02.exceptions.TodoException;
 import org.serratec.java2backend.projeto02.model.Aluno;
 import org.serratec.java2backend.projeto02.model.Todo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +14,9 @@ public class TodoService {
     // Listas
     List<Todo> lista = new ArrayList<>();
     List<Aluno> aluno = new ArrayList<>();
+    //Atributos
+    @Value("${url.serratec}")
+    private String urlSerratec;
 
     //Métodos do Todo
     public void adicionar(Todo todo) {
@@ -35,6 +40,18 @@ public class TodoService {
         lista.remove(posicaoLista);
     }
 
+    public Todo buscarPorId(Integer idTodo) throws TodoException {
+        Todo todoNoBanco = new Todo();
+        for (Todo todo : lista) {
+            if (todo.getId().equals(idTodo)) {
+                todoNoBanco = todo;
+            }
+        }
+        if (todoNoBanco.getId() == null) {
+            throw new TodoException(idTodo);
+        }
+        return todoNoBanco;
+    }
 
     //Métodos do Aluno
     public void adicionarAluno(Aluno nomeAluno) {

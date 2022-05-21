@@ -2,7 +2,7 @@ package org.serratec.java2backend.projeto02.model;
 
 public class Todo {
     //Atributos
-    public int id;
+    public Integer id;
     public String titulo;
     public String descricao;
 
@@ -11,18 +11,18 @@ public class Todo {
 
     }
 
-    public Todo(int id, String titulo, String descricao) {
+    public Todo(Integer id, String titulo, String descricao) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
     }
 
     //Getters e Setters
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
