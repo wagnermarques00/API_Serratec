@@ -1,7 +1,6 @@
 package org.serratec.projeto05.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -14,9 +13,8 @@ public class Cliente {
     private Integer idCliente;
 
     @Column(name = "cliente_tx_nome")
-        private String nome;
+    private String nome;
 
-    @Size(max = 14)
     @Column(name = "cliente_tx_cpf")
     private String cpf;
 
@@ -27,7 +25,6 @@ public class Cliente {
     private String email;
 
     @Column(name = "cliente_dt_nascimento")
-    @DateTimeFormat(pattern= "")
     private Date dataNascimento;
 
     //Getters e Setters

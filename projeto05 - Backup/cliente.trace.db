@@ -1,0 +1,5 @@
+2022-05-20 21:54:47 jdbc[14]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "select * from cliente\000d\000a\000d\000adelete [*]from cliente"; SQL statement:
+select * from cliente
+
+delete from cliente [42000-212]

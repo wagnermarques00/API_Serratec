@@ -1,34 +1,19 @@
-package org.serratec.projeto05.model;
+package org.serratec.projeto05.dto;
 
-import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Date;
 
-@Entity
-@Table(name = "cliente")
-public class Cliente {
+public class ClienteDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cliente_cd_id")
     private Integer idCliente;
-
-    @Column(name = "cliente_tx_nome")
-        private String nome;
-
-    @Size(max = 14)
-    @Column(name = "cliente_tx_cpf")
+    private String nome;
     private String cpf;
-
-    @Column(name = "cliente_tx_numero_telefone")
     private String numeroTelefone;
-
-    @Column(name = "cliente_tx_email")
     private String email;
-
-    @Column(name = "cliente_dt_nascimento")
-    @DateTimeFormat(pattern= "")
     private Date dataNascimento;
+
+    //Construtor
+    public ClienteDTO() {
+    }
 
     //Getters e Setters
     public Integer getIdCliente() {

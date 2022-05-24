@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionController {
 
     @ExceptionHandler(ContaException.class)
-    public ResponseEntity<String> trataTodoNotFound(ContaException exception) {
+    public ResponseEntity<String> badRequestTratado(ContaException exception) {
         String msg = String.format("O saldo da conta de ID %d não é suficiente.", exception.getId());
-        return ResponseEntity.notFound()
+        return ResponseEntity.badRequest()
                 .header("x-erro-msg", msg)
                 .header("x-erro-code", "SALDO INSUFICIENTE")
                // .header("x-erro-value", exception.getId().toString())
