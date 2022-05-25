@@ -11,12 +11,7 @@ public class LivroDTO {
     private Date livroDataPublicacao;
 
     //Construtor
-    public LivroDTO(Integer livroId, String livroTitulo, String livroTipo, String livroAutor, Date livroDataPublicacao) {
-        this.livroId = livroId;
-        this.livroTitulo = livroTitulo;
-        this.livroTipo = livroTipo;
-        this.livroAutor = livroAutor;
-        this.livroDataPublicacao = livroDataPublicacao;
+    public LivroDTO() {
     }
 
     //Getters e Setters
