@@ -1,5 +1,7 @@
 package org.serratec.projeto05.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -27,7 +29,7 @@ public class Cliente {
     private String email;
 
     @Column(name = "cliente_dt_nascimento")
-    @DateTimeFormat(pattern= "")
+    @DateTimeFormat(pattern= "yyyy/mm/dd")
     private Date dataNascimento;
 
     //Getters e Setters

@@ -30,7 +30,7 @@ public class ClienteService {
 
     }
 
-    public void salvarCliente(ClienteDTO clienteDTO) {
+    public void salvarCliente(Cliente clienteDTO) {
         //clienteDTO possui os dados
         Cliente cliente = new Cliente();
         Cliente clienteSalvar = transformarClienteEmClienteDTO(clienteDTO, cliente);
@@ -52,7 +52,7 @@ public class ClienteService {
         return clienteDTO;
     }
 
-    public void atualizarCliente(Integer idCliente, ClienteDTO clienteDTO) {
+    public void atualizarCliente(Integer idCliente, Cliente clienteDTO) {
         Optional<Cliente> cliente = clienteRepository.findById(idCliente);
         Cliente clienteNoBanco = new Cliente();
 
