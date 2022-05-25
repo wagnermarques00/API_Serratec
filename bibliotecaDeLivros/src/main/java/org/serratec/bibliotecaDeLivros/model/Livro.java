@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -22,17 +23,17 @@ public class Livro {
     private Integer livroId;
 
     @Size(min = 5, max = 30)
-    @NotEmpty
+    @NotNull
     @Column(name = "livro_titulo")
     private String livroTitulo;
 
     @Size(min = 3, max = 30)
-    @NotEmpty
+    @NotNull
     @Column(name = "livro_tipo")
     private String livroTipo;
 
     @Size(min = 10, max = 40)
-    @NotEmpty
+    @NotNull
     @Column(name = "livro_autor")
     private String livroAutor;
 
@@ -44,6 +45,7 @@ public class Livro {
 
     //Construtores
     public Livro() {
+
     }
 
     //Getters e Setters
