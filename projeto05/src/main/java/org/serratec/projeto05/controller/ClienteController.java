@@ -1,13 +1,22 @@
-package org.serratec.projeto05.controller;
+package org.serratec.backend.projeto06.controller;
 
-import org.serratec.projeto05.model.Cliente;
-import org.serratec.projeto05.service.ClienteService;
+import java.util.List;
+
+import org.serratec.backend.projeto06.dto.ClienteDTO;
+import org.serratec.backend.projeto06.exception.ClienteException;
+import org.serratec.backend.projeto06.model.Cliente;
+import org.serratec.backend.projeto06.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/cliente")
@@ -16,37 +25,38 @@ public class ClienteController {
     @Autowired
     ClienteService clienteService;
 
-    @PostMapping("/salvarCliente")
-    public ResponseEntity<Void> salvarCliente(@RequestBody Cliente cliente) {
-        clienteService.salvarCliente(cliente);
-        return new ResponseEntity<>((HttpStatus.CREATED));
+    @PostMapping("/salvar")
+    public ResponseEntity<Void> salvar(@RequestBody ClienteDTO clienteDTO) {
+        clienteService.salvar(clienteDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/buscarCliente/{idCliente}")
-    public ResponseEntity<Cliente> buscarPorId(@PathVariable Integer idCliente) {
+    @GetMapping("/buscar/{idCliente}")
+    public ResponseEntity<ClienteDTO> buscarPorId(@PathVariable Integer idCliente) throws ClienteException {
         return ResponseEntity.ok(clienteService.buscarPorId(idCliente));
     }
 
-    @PutMapping("/atualizarCliente/{idCliente}")
-    public ResponseEntity<Void> atualizarCliente(@PathVariable Integer idCliente, @RequestBody Cliente cliente) {
-        clienteService.atualizarCliente(idCliente, cliente);
-        return new ResponseEntity<>((HttpStatus.ACCEPTED));
-    }
-
-    @DeleteMapping(value = "/deletarcliente/{idCliente}")
-    public ResponseEntity<Void> deletarCliente(@PathVariable Integer idCliente) {
-        clienteService.deletarCliente(idCliente);
+    @PutMapping("/atualizar/{idCliente}")
+    public ResponseEntity<Void> atualizar(@PathVariable Integer idCliente, @RequestBody ClienteDTO clienteDTO) {
+        clienteService.atualizar(idCliente, clienteDTO);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
-    @GetMapping(value = "/listarclientes")
-    public ResponseEntity<List<Cliente>> listarTodos() {
+    @DeleteMapping("/delete/{idCliente}")
+    public ResponseEntity<Void> delete(@PathVariable Integer idCliente) {
+        clienteService.delete(idCliente);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping("/lista")
+    public ResponseEntity<List<Cliente>> listaTodos() {
         return ResponseEntity.ok(clienteService.listarTodos());
     }
 
-    @PostMapping(value = "/salvar-lista")
+    @PostMapping("/salvar-lista")
     public ResponseEntity<Void> salvarLista(@RequestBody List<Cliente> listaCliente) {
         clienteService.salvarTodos(listaCliente);
-        return new ResponseEntity<>((HttpStatus.CREATED));
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
+
 }
