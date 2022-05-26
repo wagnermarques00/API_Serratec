@@ -1,4 +1,4 @@
-package org.serratec.backend.projeto06.projeto06;
+package org.serratec.backend.projeto07.projeto06;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

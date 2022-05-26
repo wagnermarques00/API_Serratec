@@ -1,12 +1,17 @@
-package org.serratec.backend.projeto06.service;
+package org.serratec.backend.projeto07.service;
 
-import org.serratec.backend.projeto06.dto.CartaoDTO;
-import org.serratec.backend.projeto06.exception.CartaoException;
-import org.serratec.backend.projeto06.model.Cartao;
-import org.serratec.backend.projeto06.repository.CartaoRepository;
+import org.serratec.backend.projeto07.dto.CartaoDTO;
+import org.serratec.backend.projeto07.exception.CartaoException;
+import org.serratec.backend.projeto07.model.Cartao;
+import org.serratec.backend.projeto07.repository.CartaoRepository;
+import org.serratec.backend.projeto07.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,12 +22,33 @@ public class CartaoService {
     @Autowired
     CartaoRepository cartaoRepository;
 
+    @Autowired
+    ClienteRepository clienteRepository;
+
+    public void leitor() throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("<Caminhoa se escolher>"));
+        String linha = bufferedReader.readLine();
+        while (linha != null) {
+            String[] dados = linha.split(";");
+            Cartao cartao = new Cartao();
+            cartao.setLimiteCartao(Double.parseDouble(dados[0]));
+            cartao.setNumeroCartao(dados[1]);
+            cartao.setNomeTitularCartao(dados[2]);
+            cartao.setDataValidade(LocalDate.parse(dados[3]));
+            cartao.setCliente(clienteRepository.getOne(Integer.parseInt(dados[4])));
+            cartaoRepository.save(cartao);
+            linha = bufferedReader.readLine();
+        }
+        bufferedReader.close();
+    }
+
     public CartaoDTO transformarModelEmDTO(Cartao cartao, CartaoDTO cartaoDTO) {
         cartaoDTO.setIdCartao(cartao.getIdCartao());
         cartaoDTO.setDataValidade(cartao.getDataValidade());
         cartaoDTO.setLimiteCartao(cartao.getLimiteCartao());
         cartaoDTO.setNomeTitularCartao(cartao.getNomeTitularCartao());
         cartaoDTO.setNumeroCartao(cartao.getNumeroCartao());
+        cartaoDTO.setNomeCliente(cartao.getCliente().getNome());
 
         return cartaoDTO;
     }
@@ -34,6 +60,9 @@ public class CartaoService {
         cartao.setNomeTitularCartao(cartaoDTO.getNomeTitularCartao());
         cartao.setNumeroCartao(cartaoDTO.getNumeroCartao());
 
+        if (cartaoDTO.getIdCliente() != null) {
+            cartao.setCliente(clienteRepository.getOne(cartaoDTO.getIdCliente()));
+        }
         return cartao;
     }
 

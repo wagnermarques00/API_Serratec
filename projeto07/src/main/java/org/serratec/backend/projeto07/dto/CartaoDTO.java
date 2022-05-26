@@ -1,10 +1,5 @@
-package org.serratec.backend.projeto06.dto;
+package org.serratec.backend.projeto07.dto;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -16,6 +11,8 @@ public class CartaoDTO implements Serializable {
     private String numeroCartao;
     private String nomeTitularCartao;
     private LocalDate dataValidade;
+    private Integer idCliente;
+    private String nomeCliente;
 
     //Construtor
     public CartaoDTO() {
@@ -61,4 +58,22 @@ public class CartaoDTO implements Serializable {
     public void setDataValidade(LocalDate dataValidade) {
         this.dataValidade = dataValidade;
     }
+
+    public Integer getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+
 }
