@@ -39,7 +39,7 @@ public class LivroController {
     }
 
     @PutMapping("/atualizar/{livroId}")
-    public ResponseEntity<String> atualizarLivro(@PathVariable Integer livroId, @RequestBody LivroDTO livroDTO) throws LivroException {
+        public ResponseEntity<String> atualizarLivro(@PathVariable Integer livroId, @RequestBody LivroDTO livroDTO) throws LivroException {
         return ResponseEntity.ok(livroService.atualizarLivro(livroId, livroDTO));
     }
 }
