@@ -1,13 +1,14 @@
-package org.serratec.backend.projeto06.controller;
+package org.serratec.backend.projeto07.controller;
 
-import org.serratec.backend.projeto06.dto.CartaoDTO;
-import org.serratec.backend.projeto06.exception.CartaoException;
-import org.serratec.backend.projeto06.service.CartaoService;
+import org.serratec.backend.projeto07.dto.CartaoDTO;
+import org.serratec.backend.projeto07.exception.CartaoException;
+import org.serratec.backend.projeto07.service.CartaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -16,6 +17,12 @@ public class CartaoController {
 
     @Autowired
     CartaoService cartaoService;
+
+    @GetMapping("/leitor")
+    public ResponseEntity<Void> leitor() throws IOException {
+        cartaoService.leitor();
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
 
     @PostMapping("/salvar")
     public ResponseEntity<String> salvarCartao(@RequestBody CartaoDTO cartaoDTO) {

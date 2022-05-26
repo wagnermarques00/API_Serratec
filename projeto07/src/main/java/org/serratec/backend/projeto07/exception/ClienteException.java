@@ -1,4 +1,4 @@
-package org.serratec.backend.projeto06.exception;
+package org.serratec.backend.projeto07.exception;
 
 public class ClienteException extends Exception {
 

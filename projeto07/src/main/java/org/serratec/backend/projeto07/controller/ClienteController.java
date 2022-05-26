@@ -1,11 +1,11 @@
-package org.serratec.backend.projeto06.controller;
+package org.serratec.backend.projeto07.controller;
 
 import java.util.List;
 
-import org.serratec.backend.projeto06.dto.ClienteDTO;
-import org.serratec.backend.projeto06.exception.ClienteException;
-import org.serratec.backend.projeto06.model.Cliente;
-import org.serratec.backend.projeto06.service.ClienteService;
+import org.serratec.backend.projeto07.dto.ClienteDTO;
+import org.serratec.backend.projeto07.exception.ClienteException;
+import org.serratec.backend.projeto07.model.Cliente;
+import org.serratec.backend.projeto07.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

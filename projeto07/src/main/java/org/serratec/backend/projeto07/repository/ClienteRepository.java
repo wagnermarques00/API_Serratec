@@ -1,6 +1,6 @@
-package org.serratec.backend.projeto06.repository;
+package org.serratec.backend.projeto07.repository;
 
-import org.serratec.backend.projeto06.model.Cliente;
+import org.serratec.backend.projeto07.model.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package org.serratec.backend.projeto06.dto;
+package org.serratec.backend.projeto07.dto;
 
 import java.util.Date;
 

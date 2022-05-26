@@ -42,7 +42,7 @@ public class LivroService {
         return "Livro (" + livro.getLivroId() + ") criado com sucesso.";
     }
 
-    public LivroDTO buscarLivroPorId(Integer livroId) throws livroException {
+    public LivroDTO buscarLivroPorId(Integer livroId) throws LivroException {
         Optional<Livro> livro = livroRepository.findById(livroId);
         Livro livroSalvo = new Livro();
         LivroDTO livroDTO = new LivroDTO();
@@ -56,11 +56,11 @@ public class LivroService {
         }
     }
 
-    public void excluirLivro() {
+    public void excluirLivro(Integer livroId) {
         livroRepository.deleteById(livroId);
     }
 
-    public String atualizarLivro(Integer livroId, LivroDTO livroDTO) throws livroException {
+    public String atualizarLivro(Integer livroId, LivroDTO livroDTO) throws LivroException {
         Optional<Livro> livro = livroRepository.findById(livroId);
         Livro livroSalvo = new Livro();
 

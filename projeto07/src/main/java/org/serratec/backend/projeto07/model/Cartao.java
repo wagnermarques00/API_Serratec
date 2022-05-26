@@ -1,11 +1,12 @@
-package org.serratec.backend.projeto06.model;
+package org.serratec.backend.projeto07.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "cartao")
@@ -34,6 +35,11 @@ public class Cartao implements Serializable {
 
     @Column(name = "cartao_data_validade")
     private LocalDate dataValidade;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", referencedColumnName = "cliente_cd_id")
+    @JsonIgnore
+    private Cliente cliente;
 
     //Construtor
     public Cartao() {
@@ -79,4 +85,14 @@ public class Cartao implements Serializable {
     public void setDataValidade(LocalDate dataValidade) {
         this.dataValidade = dataValidade;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+
 }
