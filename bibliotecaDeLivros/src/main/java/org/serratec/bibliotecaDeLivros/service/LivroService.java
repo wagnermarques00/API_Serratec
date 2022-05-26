@@ -17,6 +17,7 @@ public class LivroService {
     @Autowired
     LivroRepository livroRepository;
 
+    //Conversões
     public LivroDTO converterModelEmDTO(Livro livro, LivroDTO livroDTO) {
         livroDTO.setLivroId(livro.getLivroId());
         livroDTO.setLivroAutor(livro.getLivroAutor());
@@ -35,11 +36,23 @@ public class LivroService {
         return livro;
     }
 
+    //Métodos CRUD
     public String salvarLivro(LivroDTO livroDTO) {
         Livro livro = new Livro();
         converterDTOemModel(livro, livroDTO);
         livroRepository.save(livro);
         return "Livro (" + livro.getLivroId() + ") criado com sucesso.";
+    }
+
+    public void salvarTodosLivros(List<LivroDTO> listaLivroDTO) {
+        List<Livro> listaLivro = new ArrayList<>();
+
+        for (LivroDTO livroDTO : listaLivroDTO) {
+            Livro livro = new Livro();
+            converterDTOemModel(livro, livroDTO);
+            listaLivro.add(livro);
+        }
+        livroRepository.saveAll(listaLivro);
     }
 
     public LivroDTO buscarLivroPorId(Integer livroId) throws LivroException {
@@ -54,6 +67,17 @@ public class LivroService {
         } else {
             throw new LivroException("Não foi possível localizar o livro com o ID informado");
         }
+    }
+
+    public List<LivroDTO> buscarTodosLivros() {
+        List<Livro> listaLivroModel = livroRepository.findAll();
+        List<LivroDTO> listaLivroDTO = new ArrayList<>();
+
+        for (Livro livro : listaLivroModel) {
+            LivroDTO livroDTO = new LivroDTO();
+            listaLivroDTO.add(livroDTO);
+        }
+        return listaLivroDTO;
     }
 
     public void excluirLivro(Integer livroId) {
@@ -84,25 +108,5 @@ public class LivroService {
         throw new LivroException("Livro não cadastrado");
     }
 
-    public List<LivroDTO> buscarTodosLivros() {
-        List<Livro> listaLivroModel = livroRepository.findAll();
-        List<LivroDTO> listaLivroDTO = new ArrayList<>();
 
-        for (Livro livro : listaLivroModel) {
-            LivroDTO livroDTO = new LivroDTO();
-            listaLivroDTO.add(livroDTO);
-        }
-        return listaLivroDTO;
-    }
-
-    public void salvarListaLivros(List<LivroDTO> listaLivroDTO) {
-        List<Livro> listaLivro = new ArrayList<>();
-
-        for (LivroDTO livroDTO : listaLivroDTO) {
-            Livro livro = new Livro();
-            converterDTOemModel(livro, livroDTO);
-            listaLivro.add(livro);
-        }
-        livroRepository.saveAll(listaLivro);
-    }
 }
