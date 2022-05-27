@@ -1,13 +1,13 @@
-package org.serratec.projeto05;
+package org.serratec.borracharia;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Projeto05Application {
+public class BorrachariaApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Projeto05Application.class, args);
+		SpringApplication.run(BorrachariaApplication.class, args);
 	}
 
 }
