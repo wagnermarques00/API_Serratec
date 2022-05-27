@@ -1,10 +1,10 @@
-package org.serratec.projeto05;
+package org.serratec.borracharia;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Projeto05ApplicationTests {
+class BorrachariaApplicationTests {
 
 	@Test
 	void contextLoads() {
