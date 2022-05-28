@@ -10,12 +10,6 @@ public class ServicoPrestado {
 
     //Atributos específicos da classe
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
-    @Column(name = "servico_id")
-    private Integer servicoID;
-
 
     private String servicoNome;
 
@@ -27,7 +21,11 @@ public class ServicoPrestado {
 
 
     //Atributos que se relacionam com outras classes
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
+    @Column(name = "servico_id")
+    private Integer servicoID;
 
     private Integer carroID;
 

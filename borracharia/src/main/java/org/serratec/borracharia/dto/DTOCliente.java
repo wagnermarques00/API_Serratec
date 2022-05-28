@@ -1,6 +1,11 @@
 package org.serratec.borracharia.dto;
 
+import org.serratec.borracharia.model.Cliente;
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class DTOCliente {
+    @Autowired
+    Cliente cliente;
 
     //Atributos específicos da classe
     private Integer clienteId;
