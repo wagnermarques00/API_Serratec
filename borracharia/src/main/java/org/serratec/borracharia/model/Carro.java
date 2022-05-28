@@ -9,12 +9,6 @@ public class Carro {
 
     //Atributos específicos da classe
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
-    @Column(name = "carro_id")
-    private Integer carroId;
-
 
     private String carroModelo;
 
@@ -25,6 +19,11 @@ public class Carro {
 
 
     //Atributos que se relacionam com outras classes
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
+    @Column(name = "carro_id")
+    private Integer carroId;
 
     private Integer clienteID;
 

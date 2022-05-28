@@ -2,7 +2,7 @@ package org.serratec.borracharia.dto;
 
 import java.time.LocalDate;
 
-public class DTOServico {
+public class DTOServicoPrestado {
     //Atributos específicos da classe
     private Integer servicoID;
     private String servicoNome;
@@ -13,7 +13,7 @@ public class DTOServico {
     private Integer carroID;
 
     //Construtor
-    public DTOServico() {
+    public DTOServicoPrestado() {
     }
 
     //Getters e Setters

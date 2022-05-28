@@ -25,6 +25,7 @@ public class ClienteController {
 	@Autowired
 	ClienteService clienteService;
 
+	//CRUD
 	@PostMapping("/salvar")
 	public ResponseEntity<Void> salvar(@RequestBody ClienteDTO clienteDTO) {
 		clienteService.salvar(clienteDTO);

@@ -2,12 +2,14 @@ package org.serratec.backend.projeto08.service;
 
 import org.serratec.backend.projeto08.dto.CartaoDTO;
 import org.serratec.backend.projeto08.exception.CartaoException;
+import org.serratec.backend.projeto08.exception.EmailException;
 import org.serratec.backend.projeto08.model.Cartao;
 import org.serratec.backend.projeto08.repository.CartaoRepository;
 import org.serratec.backend.projeto08.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,52 +27,28 @@ public class CartaoService {
     @Autowired
     ClienteRepository clienteRepository;
 
-    public void leitor() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader("<Caminhoa se escolher>"));
-        String linha = bufferedReader.readLine();
-        while (linha != null) {
-            String[] dados = linha.split(";");
-            Cartao cartao = new Cartao();
-            cartao.setLimiteCartao(Double.parseDouble(dados[0]));
-            cartao.setNumeroCartao(dados[1]);
-            cartao.setNomeTitularCartao(dados[2]);
-            cartao.setDataValidade(LocalDate.parse(dados[3]));
-            cartao.setCliente(clienteRepository.getOne(Integer.parseInt(dados[4])));
-            cartaoRepository.save(cartao);
-            linha = bufferedReader.readLine();
-        }
-        bufferedReader.close();
-    }
+    @Autowired
+    EmailService emailService;
 
-    public CartaoDTO transformarModelEmDTO(Cartao cartao, CartaoDTO cartaoDTO) {
-        cartaoDTO.setIdCartao(cartao.getIdCartao());
-        cartaoDTO.setDataValidade(cartao.getDataValidade());
-        cartaoDTO.setLimiteCartao(cartao.getLimiteCartao());
-        cartaoDTO.setNomeTitularCartao(cartao.getNomeTitularCartao());
-        cartaoDTO.setNumeroCartao(cartao.getNumeroCartao());
-        cartaoDTO.setNomeCliente(cartao.getCliente().getNome());
-
-        return cartaoDTO;
-    }
-
-    public Cartao transformarDTOEmModel(Cartao cartao, CartaoDTO cartaoDTO) {
-        cartao.setIdCartao(cartaoDTO.getIdCartao());
-        cartao.setDataValidade(cartaoDTO.getDataValidade());
-        cartao.setLimiteCartao(cartaoDTO.getLimiteCartao());
-        cartao.setNomeTitularCartao(cartaoDTO.getNomeTitularCartao());
-        cartao.setNumeroCartao(cartaoDTO.getNumeroCartao());
-
-        if (cartaoDTO.getIdCliente() != null) {
-            cartao.setCliente(clienteRepository.getOne(cartaoDTO.getIdCliente()));
-        }
-        return cartao;
-    }
-
-    public String salvarCartao(CartaoDTO cartaoDTO) {
+    //CRUD
+    public String salvarCartao(CartaoDTO cartaoDTO) throws MessagingException, EmailException {
         Cartao cartao = new Cartao();
         transformarDTOEmModel(cartao, cartaoDTO);
         cartaoRepository.save(cartao);
+
+        emailService.emailCartaoSalvo(cartao.getNomeTitularCartao(), cartao.getNumeroCartao());
         return "O cartão foi criado com o id: " + cartao.getIdCartao();
+    }
+
+    public void salvarListaCartao(List<CartaoDTO> listaCartaoDTO) {
+        List<Cartao> listaCartao = new ArrayList<>();
+
+        for (CartaoDTO cartaoDTO : listaCartaoDTO) {
+            Cartao cartao = new Cartao();
+            transformarDTOEmModel(cartao, cartaoDTO);
+            listaCartao.add(cartao);
+        }
+        cartaoRepository.saveAll(listaCartao);
     }
 
     public CartaoDTO buscarPorId(Integer idCartao) throws CartaoException {
@@ -86,8 +64,15 @@ public class CartaoService {
         throw new CartaoException("Cartão com id informado não encontrado");
     }
 
-    public void deletarCartao(Integer idCartao) {
-        cartaoRepository.deleteById(idCartao);
+    public List<CartaoDTO> buscarTodosCartoes() {
+        List<Cartao> listaCartaoModel = cartaoRepository.buscarTodosCartoesDesc();
+        List<CartaoDTO> listaCartaoDTO = new ArrayList<>();
+        for (Cartao cartao : listaCartaoModel) {
+            CartaoDTO cartaoDTO = new CartaoDTO();
+            transformarModelEmDTO(cartao, cartaoDTO);
+            listaCartaoDTO.add(cartaoDTO);
+        }
+        return listaCartaoDTO;
     }
 
     public String atualizarCartao(Integer idCartao, CartaoDTO cartaoDTO) throws CartaoException {
@@ -113,25 +98,55 @@ public class CartaoService {
         throw new CartaoException("O cartão não foi atualizado");
     }
 
-    public List<CartaoDTO> buscarTodosCartoes() {
-        List<Cartao> listaCartaoModel = cartaoRepository.findAll();
-        List<CartaoDTO> listaCartaoDTO = new ArrayList<>();
-        for (Cartao cartao : listaCartaoModel) {
-            CartaoDTO cartaoDTO = new CartaoDTO();
-            transformarModelEmDTO(cartao, cartaoDTO);
-            listaCartaoDTO.add(cartaoDTO);
-        }
-        return listaCartaoDTO;
+    public void deletarCartao(Integer idCartao) {
+        cartaoRepository.deleteById(idCartao);
     }
 
-    public void salvarListaCartao(List<CartaoDTO> listaCartaoDTO) {
-        List<Cartao> listaCartao = new ArrayList<>();
+    //Query
+    public Integer contarQuantidadeCartoes() {
+        return cartaoRepository.contagemTabelaH2();
+    }
 
-        for (CartaoDTO cartaoDTO : listaCartaoDTO) {
+    //Leitor
+    public void leitor() throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader("<Caminho a se escolher>"));
+        String linha = bufferedReader.readLine();
+        while (linha != null) {
+            String[] dados = linha.split(";");
             Cartao cartao = new Cartao();
-            transformarDTOEmModel(cartao, cartaoDTO);
-            listaCartao.add(cartao);
+            cartao.setLimiteCartao(Double.parseDouble(dados[0]));
+            cartao.setNumeroCartao(dados[1]);
+            cartao.setNomeTitularCartao(dados[2]);
+            cartao.setDataValidade(LocalDate.parse(dados[3]));
+            cartao.setCliente(clienteRepository.getOne(Integer.parseInt(dados[4])));
+            cartaoRepository.save(cartao);
+            linha = bufferedReader.readLine();
         }
-        cartaoRepository.saveAll(listaCartao);
+        bufferedReader.close();
+    }
+
+    //Conversores
+    public CartaoDTO transformarModelEmDTO(Cartao cartao, CartaoDTO cartaoDTO) {
+        cartaoDTO.setIdCartao(cartao.getIdCartao());
+        cartaoDTO.setDataValidade(cartao.getDataValidade());
+        cartaoDTO.setLimiteCartao(cartao.getLimiteCartao());
+        cartaoDTO.setNomeTitularCartao(cartao.getNomeTitularCartao());
+        cartaoDTO.setNumeroCartao(cartao.getNumeroCartao());
+        cartaoDTO.setNomeCliente(cartao.getCliente().getNome());
+
+        return cartaoDTO;
+    }
+
+    public Cartao transformarDTOEmModel(Cartao cartao, CartaoDTO cartaoDTO) {
+        cartao.setIdCartao(cartaoDTO.getIdCartao());
+        cartao.setDataValidade(cartaoDTO.getDataValidade());
+        cartao.setLimiteCartao(cartaoDTO.getLimiteCartao());
+        cartao.setNomeTitularCartao(cartaoDTO.getNomeTitularCartao());
+        cartao.setNumeroCartao(cartaoDTO.getNumeroCartao());
+
+        if (cartaoDTO.getIdCliente() != null) {
+            cartao.setCliente(clienteRepository.getOne(cartaoDTO.getIdCliente()));
+        }
+        return cartao;
     }
 }

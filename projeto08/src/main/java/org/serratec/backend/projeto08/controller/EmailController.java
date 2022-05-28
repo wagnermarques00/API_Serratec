@@ -17,7 +17,7 @@ public class EmailController {
     EmailService emailService;
 
     @GetMapping("/email")
-    public void enviarEmail() throws MessagingException, EmailException {
+    public void enviarEmailTeste() throws MessagingException, EmailException {
         emailService.emailTeste();
     }
 }

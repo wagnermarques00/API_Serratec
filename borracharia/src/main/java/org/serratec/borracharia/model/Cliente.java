@@ -9,12 +9,6 @@ public class Cliente {
 
     //Atributos específicos da classe
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
-    @Column(name = "cliente_id")
-    private Integer clienteId;
-
 
     private String clienteCPF; // --> unique = true
 
@@ -26,9 +20,13 @@ public class Cliente {
 
 
     //Atributos que se relacionam com outras classes
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
+    @Column(name = "cliente_id")
+    private Integer clienteId;
 
     private Integer carroID;
-
 
     //Construtor vazio
     public Cliente() {
