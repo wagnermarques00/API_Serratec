@@ -1,15 +1,22 @@
 package org.serratec.borracharia.dto;
 
+import org.serratec.borracharia.model.Cliente;
+import org.serratec.borracharia.model.ServicoPrestado;
+
+import java.util.List;
+
 public class DTOCarro {
+    //ID da classe
+   private Integer carroId;
+
     //Atributos específicos da classe
-    private Integer carroId;
     private String carroModelo;
     private String carroMarca;
     private String carroAno;
 
     //Atributos que se relacionam com outras classes
-    private Integer clienteID;
-    private Integer servicoID;
+    private List<ServicoPrestado> listaServico;
+    private Cliente cliente;
 
     //Construtor vazio
     public DTOCarro() {
@@ -48,19 +55,19 @@ public class DTOCarro {
         this.carroAno = carroAno;
     }
 
-    public Integer getClienteID() {
-        return clienteID;
+    public List<ServicoPrestado> getListaServico() {
+        return listaServico;
     }
 
-    public void setClienteID(Integer clienteID) {
-        this.clienteID = clienteID;
+    public void setListaServico(List<ServicoPrestado> listaServico) {
+        this.listaServico = listaServico;
     }
 
-    public Integer getServicoID() {
-        return servicoID;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setServicoID(Integer servicoID) {
-        this.servicoID = servicoID;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

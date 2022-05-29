@@ -1,37 +1,42 @@
 package org.serratec.borracharia.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
-@Table(name = "CLIENTE")
+@Table(name = "cliente")
 public class Cliente {
 
-    //Atributos específicos da classe
-
-
-    private String clienteCPF; // --> unique = true
-
-
-    private String clienteNumero;
-
-
-    private String clienteEmail; // --> @email
-
-
-    //Atributos que se relacionam com outras classes
+    //ID da classe
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(name = "cliente_id")
     private Integer clienteId;
 
-    private Integer carroID;
+    //Atributos específicos da classe
+    @NotNull
+    @Column(name = "cliente_cpf", unique = true)
+    private String clienteCPF; // --> unique = true
+
+    @NotNull
+    @Column(name = "cliente_numero")
+    private String clienteNumero;
+
+    @NotNull
+    @Email
+    @Column(name = "cliente_email")
+    private String clienteEmail; // --> @email
+
+    //Atributos que se relacionam com outras classes
+    @OneToMany(mappedBy = "cliente")
+    private List<Carro> listaCarro;
 
     //Construtor vazio
     public Cliente() {
     }
-
 
     //Getters e Setters
     public Integer getClienteId() {
@@ -66,11 +71,11 @@ public class Cliente {
         this.clienteEmail = clienteEmail;
     }
 
-    public Integer getCarroID() {
-        return carroID;
+    public List<Carro> getListaCarro() {
+        return listaCarro;
     }
 
-    public void setCarroID(Integer carroID) {
-        this.carroID = carroID;
+    public void setListaCarro(List<Carro> listaCarro) {
+        this.listaCarro = listaCarro;
     }
 }
