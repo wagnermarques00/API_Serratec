@@ -2,34 +2,41 @@ package org.serratec.borracharia.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
-@Table(name = "CARRO")
+@Table(name = "carro")
 public class Carro {
 
-    //Atributos específicos da classe
-
-
-    private String carroModelo;
-
-
-    private String carroMarca;
-
-    private String carroAno;
-
-
-    //Atributos que se relacionam com outras classes
+    //ID da classe
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(name = "carro_id")
     private Integer carroId;
 
-    private Integer clienteID;
+    //Atributos específicos da classe
+    @NotNull
+    @Column(name = "carro_modelo")
+    private String carroModelo;
 
+    @NotNull
+    @Column(name = "carro_marca")
+    private String carroMarca;
 
-    private Integer servicoID;
+    @NotNull
+    @Size(max = 4)
+    @Column(name = "carro_ano")
+    private String carroAno;
 
+    //Atributos que se relacionam com outras classes
+    @OneToMany(mappedBy = "carro")
+    private List<ServicoPrestado> listaServico;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id", referencedColumnName = "cliente_id")
+    private Cliente cliente;
 
     //Construtor vazio
     public Carro() {
@@ -69,19 +76,19 @@ public class Carro {
         this.carroAno = carroAno;
     }
 
-    public Integer getClienteID() {
-        return clienteID;
+    public List<ServicoPrestado> getListaServico() {
+        return listaServico;
     }
 
-    public void setClienteID(Integer clienteID) {
-        this.clienteID = clienteID;
+    public void setListaServico(List<ServicoPrestado> listaServico) {
+        this.listaServico = listaServico;
     }
 
-    public Integer getServicoID() {
-        return servicoID;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setServicoID(Integer servicoID) {
-        this.servicoID = servicoID;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 }

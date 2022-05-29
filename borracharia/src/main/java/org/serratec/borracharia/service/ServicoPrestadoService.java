@@ -72,11 +72,11 @@ public class ServicoPrestadoService {
             if (dtoServicoPrestado.getServicoData() != null) {
                 dtoServicoPrestado.setServicoData(dtoServicoPrestado.getServicoData());
             }
-            if (dtoServicoPrestado.getServicoValor() != null) {
-                dtoServicoPrestado.setServicoValor(dtoServicoPrestado.getServicoValor());
-            }
             if (dtoServicoPrestado.getServicoNome() != null) {
                 dtoServicoPrestado.setServicoNome(dtoServicoPrestado.getServicoNome());
+            }
+            if (dtoServicoPrestado.getServicoValor() != null) {
+                dtoServicoPrestado.setServicoValor(dtoServicoPrestado.getServicoValor());
             }
             servicoPrestadoRepository.save(servicoSalvo);
         }
@@ -97,7 +97,7 @@ public class ServicoPrestadoService {
         servicoPrestadoDTO.setServicoNome(servicoPrestado.getServicoNome());
         servicoPrestadoDTO.setServicoValor(servicoPrestado.getServicoValor());
 
-        servicoPrestadoDTO.setCarroID(servicoPrestado.getCarroID());
+        servicoPrestadoDTO.setCarro(servicoPrestado.getCarro());
 
         return servicoPrestadoDTO;
     }
@@ -108,7 +108,7 @@ public class ServicoPrestadoService {
         servicoPrestado.setServicoNome(servicoPrestadoDTO.getServicoNome());
         servicoPrestado.setServicoValor(servicoPrestadoDTO.getServicoValor());
 
-        servicoPrestado.setCarroID(servicoPrestadoDTO.getCarroID());
+        servicoPrestado.setCarro(servicoPrestadoDTO.getCarro());
 
         return servicoPrestado;
     }

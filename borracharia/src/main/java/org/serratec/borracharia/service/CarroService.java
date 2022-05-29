@@ -98,9 +98,8 @@ public class CarroService {
         carroDTO.setCarroMarca(carro.getCarroMarca());
         carroDTO.setCarroModelo(carro.getCarroModelo());
 
-        carroDTO.setClienteID(carro.getClienteID());
-        carroDTO.setServicoID(carro.getServicoID());
-
+        carroDTO.setCliente(carro.getCliente());
+        carroDTO.setListaServico(carro.getListaServico());
         return carroDTO;
     }
 
@@ -110,8 +109,8 @@ public class CarroService {
         carro.setCarroMarca(carroDTO.getCarroMarca());
         carro.setCarroModelo(carroDTO.getCarroModelo());
 
-        carro.setClienteID(carroDTO.getClienteID());
-        carro.setServicoID(carroDTO.getServicoID());
+        carro.setCliente(carroDTO.getCliente());
+        carro.setListaServico(carroDTO.getListaServico());
 
         return carro;
     }

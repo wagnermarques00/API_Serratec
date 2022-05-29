@@ -2,33 +2,38 @@ package org.serratec.borracharia.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "SERVICO")
+@Table(name = "servico")
 public class ServicoPrestado {
 
-    //Atributos específicos da classe
-
-
-    private String servicoNome;
-
-
-    private Double servicoValor;
-
-
-    private LocalDate servicoData;
-
-
-    //Atributos que se relacionam com outras classes
+    //ID da classe
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     @Column(name = "servico_id")
     private Integer servicoID;
 
-    private Integer carroID;
+    //Atributos específicos da classe
+    @NotNull
+    @Size(min = 5, max = 50)
+    @Column(name = "servico_nome")
+    private String servicoNome;
 
+    @NotNull
+    @Column(name = "servico_valor")
+    private Double servicoValor;
+
+    @NotNull
+    @Column(name = "servico_data")
+    private LocalDate servicoData;
+
+    //Atributos que se relacionam com outras classes
+    @ManyToOne
+    @JoinColumn(name = "carro_id", referencedColumnName = "carro_id", nullable = false)
+    private Carro carro;
 
     //Construtor vazio
     public ServicoPrestado() {
@@ -67,11 +72,11 @@ public class ServicoPrestado {
         this.servicoData = servicoData;
     }
 
-    public Integer getCarroID() {
-        return carroID;
+    public Carro getCarro() {
+        return carro;
     }
 
-    public void setCarroID(Integer carroID) {
-        this.carroID = carroID;
+    public void setCarro(Carro carro) {
+        this.carro = carro;
     }
 }

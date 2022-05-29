@@ -1,20 +1,20 @@
 package org.serratec.borracharia.dto;
 
-import org.serratec.borracharia.model.Cliente;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.serratec.borracharia.model.Carro;
+
+import java.util.List;
 
 public class DTOCliente {
-    @Autowired
-    Cliente cliente;
+    //ID da classe
+    private Integer clienteId;
 
     //Atributos específicos da classe
-    private Integer clienteId;
-    private String clienteCPF;
+    private String clienteCPF; // --> unique = true
     private String clienteNumero;
-    private String clienteEmail;
+    private String clienteEmail; // --> @email
 
     //Atributos que se relacionam com outras classes
-    private Integer carroID;
+    private List<Carro> listaCarro;
 
     //Construtor vazio
     public DTOCliente() {
@@ -53,11 +53,11 @@ public class DTOCliente {
         this.clienteEmail = clienteEmail;
     }
 
-    public Integer getCarroID() {
-        return carroID;
+    public List<Carro> getListaCarro() {
+        return listaCarro;
     }
 
-    public void setCarroID(Integer carroID) {
-        this.carroID = carroID;
+    public void setListaCarro(List<Carro> listaCarro) {
+        this.listaCarro = listaCarro;
     }
 }
