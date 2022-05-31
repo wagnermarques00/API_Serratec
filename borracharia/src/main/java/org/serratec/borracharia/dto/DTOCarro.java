@@ -15,8 +15,7 @@ public class DTOCarro {
     private String carroAno;
 
     //Atributos que se relacionam com outras classes
-    private List<ServicoPrestado> listaServico;
-    private Cliente cliente;
+    private Integer clienteID;
 
     //Construtor vazio
     public DTOCarro() {
@@ -55,19 +54,11 @@ public class DTOCarro {
         this.carroAno = carroAno;
     }
 
-    public List<ServicoPrestado> getListaServico() {
-        return listaServico;
+    public Integer getClienteID() {
+        return clienteID;
     }
 
-    public void setListaServico(List<ServicoPrestado> listaServico) {
-        this.listaServico = listaServico;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setClienteID(Integer clienteID) {
+        this.clienteID = clienteID;
     }
 }

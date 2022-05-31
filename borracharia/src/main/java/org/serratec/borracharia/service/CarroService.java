@@ -6,11 +6,13 @@ import org.serratec.borracharia.repository.CarroRepository;
 import org.serratec.borracharia.repository.ClienteRepository;
 import org.serratec.borracharia.repository.ServicoPrestadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CarroService {
     //Repositórios
     @Autowired
@@ -73,13 +75,18 @@ public class CarroService {
             carroSalvo = carro.get();
 
             if (dtoCarro.getCarroAno() != null) {
-                dtoCarro.setCarroAno(dtoCarro.getCarroAno());
+                carroSalvo.setCarroAno(dtoCarro.getCarroAno());
             }
             if (dtoCarro.getCarroMarca() != null) {
-                dtoCarro.setCarroMarca(dtoCarro.getCarroMarca());
+                carroSalvo.setCarroMarca(dtoCarro.getCarroMarca());
             }
             if (dtoCarro.getCarroModelo() != null) {
-                dtoCarro.setCarroModelo(dtoCarro.getCarroModelo());
+                carroSalvo.setCarroModelo(dtoCarro.getCarroModelo());
+            }
+            //Conversão
+            if (dtoCarro.getClienteID() != null) {
+//              carroSalvo.setCliente(clienteRepository.getOne(dtoCarro.getClienteID()));
+                carroSalvo.setCliente(clienteRepository.findById(dtoCarro.getClienteID()).get());
             }
 
             carroRepository.save(carroSalvo);
@@ -97,9 +104,8 @@ public class CarroService {
         carroDTO.setCarroAno(carro.getCarroAno());
         carroDTO.setCarroMarca(carro.getCarroMarca());
         carroDTO.setCarroModelo(carro.getCarroModelo());
+        carroDTO.setClienteID(carro.getCliente().getClienteId());
 
-        carroDTO.setCliente(carro.getCliente());
-        carroDTO.setListaServico(carro.getListaServico());
         return carroDTO;
     }
 
@@ -108,9 +114,7 @@ public class CarroService {
         carro.setCarroAno(carroDTO.getCarroAno());
         carro.setCarroMarca(carroDTO.getCarroMarca());
         carro.setCarroModelo(carroDTO.getCarroModelo());
-
-        carro.setCliente(carroDTO.getCliente());
-        carro.setListaServico(carroDTO.getListaServico());
+        carro.setCliente(clienteRepository.findById(carroDTO.getClienteID()).get());
 
         return carro;
     }

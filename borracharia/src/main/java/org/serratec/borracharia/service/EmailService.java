@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDate;
 import java.util.Properties;
 
 @Component
@@ -95,5 +96,40 @@ public class EmailService {
 
     //Automações
 
+    public void emailServicoPrestado(Double valorServico, String nomeServico, LocalDate dataServico, Integer idCarro, String carroModelo, String carroMarca, String carroAno) throws MessagingException, EmailException {
+        this.emailSender = javaMailSender();
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
+        try {
+            helper.setFrom(userName);
+            helper.setTo(emailDestinatario);
+            helper.setSubject("Seu serviço foi efetuado!");
+
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(
+                    "<html>\r\n"
+                            + "<body>\r\n"
+                            + "<div>\r\n"
+                            + "<title> Relação do serviço prestado</title>\r\n "
+                            + "<h2> Segue relação do serviço prestado dia " + dataServico + ": </h2>"
+                            + "<p> Serviço: " + nomeServico + "</p>"
+                            + "<p> Valor: R$" + valorServico + "</p>"
+                            + "<h2> Dados do carro" + idCarro + "</h2>"
+                            + "<p> Modelo: " + carroModelo + "</p>"
+                            + "<p> Marca: " + carroMarca + "</p>"
+                            + "<p> Ano: " + carroAno + "</p>"
+                            + "<br></br>"
+                            + "</div>\r\n"
+                            + "</body>\r\n"
+                            + "</html>\r\n"
+            );
+
+            helper.setText(stringBuilder.toString(), true);
+            emailSender.send(message);
+
+        } catch (Exception exception) {
+            throw new EmailException("Houve erro ao enviar o email: " + exception.getMessage());
+        }
+    }
 }
