@@ -5,11 +5,13 @@ import org.serratec.borracharia.model.Cliente;
 import org.serratec.borracharia.repository.CarroRepository;
 import org.serratec.borracharia.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ClienteService {
     //Repositórios
     @Autowired
@@ -68,14 +70,17 @@ public class ClienteService {
         if (cliente.isPresent()) {
             clienteSalvo = cliente.get();
 
+            if(dtoCliente.getClienteNome() != null) {
+                clienteSalvo.setClienteNome(dtoCliente.getClienteNome());
+            }
             if (dtoCliente.getClienteCPF() != null) {
-                dtoCliente.setClienteCPF(dtoCliente.getClienteCPF());
+                clienteSalvo.setClienteCPF(dtoCliente.getClienteCPF());
             }
             if (dtoCliente.getClienteEmail() != null) {
-                dtoCliente.setClienteEmail(dtoCliente.getClienteEmail());
+                clienteSalvo.setClienteEmail(dtoCliente.getClienteEmail());
             }
             if (dtoCliente.getClienteNumero() != null) {
-                dtoCliente.setClienteNumero(dtoCliente.getClienteNumero());
+                clienteSalvo.setClienteNumero(dtoCliente.getClienteNumero());
             }
 
             clienteRepository.save(clienteSalvo);
@@ -90,20 +95,21 @@ public class ClienteService {
     //Conversores
     public DTOCliente ClienteModelParaDTO(Cliente cliente, DTOCliente clienteDTO) {
         clienteDTO.setClienteId(cliente.getClienteId());
+        clienteDTO.setClienteCPF(cliente.getClienteCPF());
+        clienteDTO.setClienteNome(cliente.getClienteNome());
         clienteDTO.setClienteEmail(cliente.getClienteEmail());
         clienteDTO.setClienteNumero(cliente.getClienteNumero());
-
-        clienteDTO.setListaCarro(cliente.getListaCarro());
 
         return clienteDTO;
     }
 
     public Cliente ClienteDTOParaModel(Cliente cliente, DTOCliente clienteDTO) {
         cliente.setClienteId(clienteDTO.getClienteId());
+        cliente.setClienteCPF(clienteDTO.getClienteCPF());
+        cliente.setClienteNome(clienteDTO.getClienteNome());
         cliente.setClienteEmail(clienteDTO.getClienteEmail());
         cliente.setClienteNumero(clienteDTO.getClienteNumero());
 
-        cliente.setListaCarro(clienteDTO.getListaCarro());
         return cliente;
     }
 }

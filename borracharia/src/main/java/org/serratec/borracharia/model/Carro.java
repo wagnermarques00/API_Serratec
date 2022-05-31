@@ -42,7 +42,6 @@ public class Carro {
     public Carro() {
     }
 
-
     //Getters e Setters
     public Integer getCarroId() {
         return carroId;

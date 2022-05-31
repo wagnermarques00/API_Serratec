@@ -15,7 +15,7 @@ public class DTOServicoPrestado {
     private LocalDate servicoData;
 
     //Atributos que se relacionam com outras classes
-    private Carro carro;
+    private Integer carroID;
 
     //Construtor vazio
     public DTOServicoPrestado() {
@@ -54,11 +54,11 @@ public class DTOServicoPrestado {
         this.servicoData = servicoData;
     }
 
-    public Carro getCarro() {
-        return carro;
+    public Integer getCarroID() {
+        return carroID;
     }
 
-    public void setCarro(Carro carro) {
-        this.carro = carro;
+    public void setCarroID(Integer carroID) {
+        this.carroID = carroID;
     }
 }

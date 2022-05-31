@@ -1,16 +1,21 @@
 package org.serratec.borracharia.service;
 
-import org.jetbrains.annotations.NotNull;
+import org.serratec.borracharia.dto.DTOCarro;
+import org.serratec.borracharia.dto.DTORelatorio;
 import org.serratec.borracharia.dto.DTOServicoPrestado;
+import org.serratec.borracharia.exception.EmailException;
 import org.serratec.borracharia.model.ServicoPrestado;
 import org.serratec.borracharia.repository.CarroRepository;
 import org.serratec.borracharia.repository.ServicoPrestadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ServicoPrestadoService {
     //Repositórios
     @Autowired
@@ -19,12 +24,17 @@ public class ServicoPrestadoService {
     @Autowired
     CarroRepository carroRepository;
 
+    @Autowired
+    EmailService emailService;
+
     //CRUD
-    public String salvarServicoPrestado(DTOServicoPrestado dtoServicoPrestado) {
+    public String salvarServicoPrestado(DTOServicoPrestado dtoServicoPrestado) throws MessagingException, EmailException {
         ServicoPrestado servicoPrestado = new ServicoPrestado();
         ServicoDTOParaModel(servicoPrestado, dtoServicoPrestado);
         servicoPrestadoRepository.save(servicoPrestado);
+        DTOCarro dtoCarro = new DTOCarro();
 
+        emailService.emailServicoPrestado(dtoServicoPrestado.getServicoValor(), dtoServicoPrestado.getServicoNome(), dtoServicoPrestado.getServicoData(), dtoServicoPrestado.getCarroID(), dtoCarro.getCarroModelo(), dtoCarro.getCarroMarca(), dtoCarro.getCarroAno());
         return "Serviço " + servicoPrestado.getServicoID() + " cadastrado.";
     }
 
@@ -70,13 +80,16 @@ public class ServicoPrestadoService {
             servicoSalvo = servicoPrestado.get();
 
             if (dtoServicoPrestado.getServicoData() != null) {
-                dtoServicoPrestado.setServicoData(dtoServicoPrestado.getServicoData());
+                servicoSalvo.setServicoData(dtoServicoPrestado.getServicoData());
             }
             if (dtoServicoPrestado.getServicoNome() != null) {
-                dtoServicoPrestado.setServicoNome(dtoServicoPrestado.getServicoNome());
+                servicoSalvo.setServicoNome(dtoServicoPrestado.getServicoNome());
             }
             if (dtoServicoPrestado.getServicoValor() != null) {
-                dtoServicoPrestado.setServicoValor(dtoServicoPrestado.getServicoValor());
+                servicoSalvo.setServicoValor(dtoServicoPrestado.getServicoValor());
+            }
+            if (dtoServicoPrestado.getCarroID() != null) {
+                servicoSalvo.setCarro(carroRepository.findById(dtoServicoPrestado.getCarroID()).get());
             }
             servicoPrestadoRepository.save(servicoSalvo);
         }
@@ -87,7 +100,12 @@ public class ServicoPrestadoService {
         servicoPrestadoRepository.deleteById(servicoPrestadoID);
     }
 
-    //Métodos auxiliares
+    //Relatórios
+    public List<DTORelatorio> relatorio5UltimosServicos() {
+        return servicoPrestadoRepository.relatorio5UltimosServicos();
+    }
+
+
 
 
     //Conversores
@@ -97,7 +115,7 @@ public class ServicoPrestadoService {
         servicoPrestadoDTO.setServicoNome(servicoPrestado.getServicoNome());
         servicoPrestadoDTO.setServicoValor(servicoPrestado.getServicoValor());
 
-        servicoPrestadoDTO.setCarro(servicoPrestado.getCarro());
+        servicoPrestadoDTO.setCarroID(servicoPrestado.getCarro().getCarroId());
 
         return servicoPrestadoDTO;
     }
@@ -108,7 +126,7 @@ public class ServicoPrestadoService {
         servicoPrestado.setServicoNome(servicoPrestadoDTO.getServicoNome());
         servicoPrestado.setServicoValor(servicoPrestadoDTO.getServicoValor());
 
-        servicoPrestado.setCarro(servicoPrestadoDTO.getCarro());
+        servicoPrestado.setCarro(carroRepository.findById(servicoPrestadoDTO.getCarroID()).get());
 
         return servicoPrestado;
     }

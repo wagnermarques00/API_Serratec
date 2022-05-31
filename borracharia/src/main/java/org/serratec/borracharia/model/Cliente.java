@@ -18,6 +18,10 @@ public class Cliente {
 
     //Atributos específicos da classe
     @NotNull
+    @Column(name = "cliente_nome")
+    private String clienteNome;
+
+    @NotNull
     @Column(name = "cliente_cpf", unique = true)
     private String clienteCPF; // --> unique = true
 
@@ -45,6 +49,14 @@ public class Cliente {
 
     public void setClienteId(Integer clienteId) {
         this.clienteId = clienteId;
+    }
+
+    public String getClienteNome() {
+        return clienteNome;
+    }
+
+    public void setClienteNome(String clienteNome) {
+        this.clienteNome = clienteNome;
     }
 
     public String getClienteCPF() {

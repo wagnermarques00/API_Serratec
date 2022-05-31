@@ -9,12 +9,14 @@ public class DTOCliente {
     private Integer clienteId;
 
     //Atributos específicos da classe
+    private String clienteNome;
     private String clienteCPF; // --> unique = true
     private String clienteNumero;
     private String clienteEmail; // --> @email
 
     //Atributos que se relacionam com outras classes
-    private List<Carro> listaCarro;
+    private Integer carroID;
+
 
     //Construtor vazio
     public DTOCliente() {
@@ -27,6 +29,14 @@ public class DTOCliente {
 
     public void setClienteId(Integer clienteId) {
         this.clienteId = clienteId;
+    }
+
+    public String getClienteNome() {
+        return clienteNome;
+    }
+
+    public void setClienteNome(String clienteNome) {
+        this.clienteNome = clienteNome;
     }
 
     public String getClienteCPF() {
@@ -53,11 +63,11 @@ public class DTOCliente {
         this.clienteEmail = clienteEmail;
     }
 
-    public List<Carro> getListaCarro() {
-        return listaCarro;
+    public Integer getCarroID() {
+        return carroID;
     }
 
-    public void setListaCarro(List<Carro> listaCarro) {
-        this.listaCarro = listaCarro;
+    public void setCarroID(Integer carroID) {
+        this.carroID = carroID;
     }
 }
