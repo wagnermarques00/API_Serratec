@@ -18,9 +18,20 @@ public class UsuarioDetalheService implements UserDetailsService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        return new User("wagner", "wagner", new ArrayList<>());
+//    }
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return new User("wagner", "wagner", new ArrayList<>());
+        Optional<Usuario> usuario = usuarioRepository.buscarPorLogin(username);
+        if (usuario.isPresent()) {
+            Usuario usuarioSalvo = usuario.get();
+            return new User(usuarioSalvo.getLoginUsuario(), usuarioSalvo.getSenhaUsuario(), new ArrayList<>());
+        }
+        throw new UsernameNotFoundException("Usuário incorreto muito incorreto");
     }
+
 
 //    @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
