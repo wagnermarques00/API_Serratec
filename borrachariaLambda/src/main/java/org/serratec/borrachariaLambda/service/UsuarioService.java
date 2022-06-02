@@ -4,8 +4,10 @@ import org.serratec.borrachariaLambda.dto.DTOUsuario;
 import org.serratec.borrachariaLambda.model.Usuario;
 import org.serratec.borrachariaLambda.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,19 +55,15 @@ public class UsuarioService {
         }
         return usuarioDTO;
     }
-//
-//    public DTOUsuario buscarUsuarioLogin(String usuarioLogin) {
-//        Optional<Usuario> usuario = usuarioRepository.findById(usuarioID);
-//        Usuario usuarioSalvo = new Usuario();
-//        DTOUsuario usuarioDTO = new DTOUsuario();
-//
-//        if (usuario.isPresent()) {
-//            usuarioSalvo = usuario.get();
-//            UsuarioModelParaDTO(usuarioSalvo, usuarioDTO);
-//
-//        }
-//        return usuarioDTO;
-//    }
+
+    public DTOUsuario buscarPorLogin(String login) {
+        return usuarioRepository.findAll()
+                .stream()
+                .filter(usuario -> usuario.getLoginUsuario().equals(login))
+                .map(usuario -> UsuarioModelParaDTO(usuario, new DTOUsuario()))
+                .findFirst()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
 
     public List<DTOUsuario> buscarTodosUsuarios() {
         List<Usuario> listaUsuario = usuarioRepository.findAll();
@@ -117,7 +115,7 @@ public class UsuarioService {
     public Usuario UsuarioDTOParaModel(Usuario usuario, DTOUsuario dtoUsuario) {
         usuario.setUsuarioId(dtoUsuario.getUsuarioId());
         usuario.setLoginUsuario(dtoUsuario.getLoginUsuario());
-        usuario.setSenhaUsuario(dtoUsuario.getSenhaUsuario());
+        usuario.setSenhaUsuario(encoder.encode(dtoUsuario.getSenhaUsuario()));
 
         return usuario;
     }
