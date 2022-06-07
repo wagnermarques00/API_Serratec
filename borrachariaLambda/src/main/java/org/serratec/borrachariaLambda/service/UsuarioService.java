@@ -51,7 +51,6 @@ public class UsuarioService {
         if (usuario.isPresent()) {
             usuarioSalvo = usuario.get();
             UsuarioModelParaDTO(usuarioSalvo, usuarioDTO);
-
         }
         return usuarioDTO;
     }

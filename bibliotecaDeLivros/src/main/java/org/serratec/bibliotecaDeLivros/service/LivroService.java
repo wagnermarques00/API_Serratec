@@ -17,25 +17,6 @@ public class LivroService {
     @Autowired
     LivroRepository livroRepository;
 
-    //Conversões
-    public LivroDTO converterModelEmDTO(Livro livro, LivroDTO livroDTO) {
-        livroDTO.setLivroId(livro.getLivroId());
-        livroDTO.setLivroAutor(livro.getLivroAutor());
-        livroDTO.setLivroDataPublicacao(livro.getLivroDataPublicacao());
-        livroDTO.setLivroTitulo(livro.getLivroTitulo());
-        livroDTO.setLivroTipo(livro.getLivroTipo());
-        return livroDTO;
-    }
-
-    public Livro converterDTOemModel(Livro livro, LivroDTO livroDTO) {
-        livro.setLivroId(livroDTO.getLivroId());
-        livro.setLivroAutor(livroDTO.getLivroAutor());
-        livro.setLivroDataPublicacao(livroDTO.getLivroDataPublicacao());
-        livro.setLivroTitulo(livro.getLivroTitulo());
-        livroDTO.setLivroTipo(livro.getLivroTipo());
-        return livro;
-    }
-
     //Métodos CRUD
     public String salvarLivro(LivroDTO livroDTO) {
         Livro livro = new Livro();
@@ -80,10 +61,6 @@ public class LivroService {
         return listaLivroDTO;
     }
 
-    public void excluirLivro(Integer livroId) {
-        livroRepository.deleteById(livroId);
-    }
-
     public String atualizarLivro(Integer livroId, LivroDTO livroDTO) throws LivroException {
         Optional<Livro> livro = livroRepository.findById(livroId);
         Livro livroSalvo = new Livro();
@@ -108,5 +85,28 @@ public class LivroService {
         throw new LivroException("Livro não cadastrado");
     }
 
+    public void excluirLivro(Integer livroId) {
+        livroRepository.deleteById(livroId);
+    }
 
+    //Conversões
+    public LivroDTO converterModelEmDTO(Livro livro, LivroDTO livroDTO) {
+        livroDTO.setLivroId(livro.getLivroId());
+        livroDTO.setLivroAutor(livro.getLivroAutor());
+        livroDTO.setLivroDataPublicacao(livro.getLivroDataPublicacao());
+        livroDTO.setLivroTitulo(livro.getLivroTitulo());
+        livroDTO.setLivroTipo(livro.getLivroTipo());
+
+        return livroDTO;
+    }
+
+    public Livro converterDTOemModel(Livro livro, LivroDTO livroDTO) {
+        livro.setLivroId(livroDTO.getLivroId());
+        livro.setLivroAutor(livroDTO.getLivroAutor());
+        livro.setLivroDataPublicacao(livroDTO.getLivroDataPublicacao());
+        livro.setLivroTitulo(livroDTO.getLivroTitulo());
+        livro.setLivroTipo(livroDTO.getLivroTipo());
+
+        return livro;
+    }
 }

@@ -22,6 +22,12 @@ public class CarroController {
         return ResponseEntity.ok(carroService.salvarCarro(carroDTO));
     }
 
+    @PostMapping("/salvarLista")
+    public ResponseEntity<Void> salvarListaCarros(@RequestBody List<DTOCarro> listaCarroDTO) {
+        carroService.salvarListaCarros(listaCarroDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @GetMapping("/listar")
     public ResponseEntity<List<DTOCarro>> listarTodosCarros() {
         return ResponseEntity.ok(carroService.buscarTodosCarros());

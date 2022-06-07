@@ -3,7 +3,6 @@ package org.serratec.borrachariaLambda.controller;
 import org.serratec.borrachariaLambda.dto.DTORelatorio;
 import org.serratec.borrachariaLambda.dto.DTOServicoPrestado;
 import org.serratec.borrachariaLambda.exception.EmailException;
-import org.serratec.borrachariaLambda.model.ServicoPrestado;
 import org.serratec.borrachariaLambda.repository.ServicoPrestadoRepository;
 import org.serratec.borrachariaLambda.service.ServicoPrestadoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +20,16 @@ public class ServicoPrestadoController {
     @Autowired
     ServicoPrestadoService servicoPrestadoService;
 
-    @Autowired
-    ServicoPrestadoRepository servicoPrestadoRepository;
-
     //CRUD
     @PostMapping("/salvar")
     public ResponseEntity<String> salvarServico(@RequestBody DTOServicoPrestado servicoPrestadoDTO) throws MessagingException, EmailException {
         return ResponseEntity.ok(servicoPrestadoService.salvarServicoPrestado(servicoPrestadoDTO));
+    }
+
+    @PostMapping("/salvarLista")
+    public ResponseEntity<Void> salvarListaServicos(@RequestBody List<DTOServicoPrestado> listaServicoDTO) {
+        servicoPrestadoService.salvarListaServicosPrestados(listaServicoDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/listar")
@@ -53,8 +55,7 @@ public class ServicoPrestadoController {
 
     //Relatórios
     @GetMapping("/relatorio/5ultimosServicos")
-    public List<DTORelatorio> relatorio5UltimosServicos () {
+    public List<DTORelatorio> relatorio5UltimosServicos() {
         return servicoPrestadoService.relatorio5UltimosServicos();
     }
-
 }

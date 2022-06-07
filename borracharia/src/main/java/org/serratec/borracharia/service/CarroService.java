@@ -4,7 +4,6 @@ import org.serratec.borracharia.dto.DTOCarro;
 import org.serratec.borracharia.model.Carro;
 import org.serratec.borracharia.repository.CarroRepository;
 import org.serratec.borracharia.repository.ClienteRepository;
-import org.serratec.borracharia.repository.ServicoPrestadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +19,6 @@ public class CarroService {
 
     @Autowired
     ClienteRepository clienteRepository;
-
-    @Autowired
-    ServicoPrestadoRepository servicoPrestadoRepository;
 
     //CRUD
     public String salvarCarro(DTOCarro dtoCarro) {
@@ -85,7 +81,6 @@ public class CarroService {
             }
             //Conversão
             if (dtoCarro.getClienteID() != null) {
-//              carroSalvo.setCliente(clienteRepository.getOne(dtoCarro.getClienteID()));
                 carroSalvo.setCliente(clienteRepository.findById(dtoCarro.getClienteID()).get());
             }
 

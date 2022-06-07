@@ -105,9 +105,6 @@ public class ServicoPrestadoService {
         return servicoPrestadoRepository.relatorio5UltimosServicos();
     }
 
-
-
-
     //Conversores
     public DTOServicoPrestado ServicoModelParaDTO(ServicoPrestado servicoPrestado, DTOServicoPrestado servicoPrestadoDTO) {
         servicoPrestadoDTO.setServicoID(servicoPrestado.getServicoID());
