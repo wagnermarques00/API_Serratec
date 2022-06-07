@@ -29,8 +29,7 @@ public class CarroService {
         Carro carro = new Carro();
         CarroDTOParaModel(carro, dtoCarro);
         carroRepository.save(carro);
-
-        return "Carro " + carro.getCarroId() + " cadastrado.";
+        return "Carro " + carro.getCarroId() + " cadastrado. Obrigado!";
     }
 
     public void salvarListaCarros(List<DTOCarro> dtoListaCarro) {
@@ -115,6 +114,7 @@ public class CarroService {
         carro.setCarroMarca(carroDTO.getCarroMarca());
         carro.setCarroModelo(carroDTO.getCarroModelo());
         carro.setCliente(clienteRepository.findById(carroDTO.getClienteID()).get());
+
 
         return carro;
     }
