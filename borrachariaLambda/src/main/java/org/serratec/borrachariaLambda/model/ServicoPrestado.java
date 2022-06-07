@@ -12,7 +12,6 @@ public class ServicoPrestado {
     //ID da classe
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "servico_id")
     private Integer servicoID;
 

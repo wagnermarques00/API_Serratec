@@ -9,7 +9,6 @@ public class Usuario {
     //ID da classe
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "cliente_id")
     private Integer usuarioId;
 
