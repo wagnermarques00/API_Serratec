@@ -39,6 +39,12 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.salvarUsuario(dtoUsuario));
     }
 
+    @PostMapping("/salvarLista")
+    public ResponseEntity<Void> salvarListaUsuarios(@RequestBody List<DTOUsuario> dtoListaUsuario) {
+        usuarioService.salvarListaUsuarios(dtoListaUsuario);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @GetMapping("/listar")
     public ResponseEntity<List<DTOUsuario>> listarTodosUsuarios() {
         return ResponseEntity.ok(usuarioService.buscarTodosUsuarios());

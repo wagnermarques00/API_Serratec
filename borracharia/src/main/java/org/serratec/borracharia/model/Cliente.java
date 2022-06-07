@@ -12,7 +12,6 @@ public class Cliente {
     //ID da classe
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "cliente_id")
     private Integer clienteId;
 

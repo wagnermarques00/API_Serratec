@@ -24,6 +24,12 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.salvarCliente(clienteDTO));
     }
 
+    @PostMapping("/salvarLista")
+    public ResponseEntity<Void> salvarListaClientes(@RequestBody List<DTOCliente> listaClienteDTO) {
+        clienteService.salvarListaClientes(listaClienteDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @GetMapping("/listar")
     public ResponseEntity<List<DTOCliente>> listarTodosCliente() {
         return ResponseEntity.ok(clienteService.buscarTodosClientes());
@@ -44,8 +50,4 @@ public class ClienteController {
         clienteService.excluirCliente(clienteID);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
-
-    //Relatórios
-
-
 }

@@ -17,9 +17,6 @@ public class ClienteService {
     @Autowired
     ClienteRepository clienteRepository;
 
-    @Autowired
-    CarroRepository carroRepository;
-
     //CRUD
     public String salvarCliente(DTOCliente dtoCliente) {
         Cliente cliente = new Cliente();

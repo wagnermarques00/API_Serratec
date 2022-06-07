@@ -22,6 +22,12 @@ public class LivroController {
         return ResponseEntity.ok(livroService.salvarLivro(livroDTO));
     }
 
+    @PostMapping("/salvarTodos")
+    public ResponseEntity<Void> salvarTodosLivros(@RequestBody List<LivroDTO> listaLivroDTO) {
+        livroService.salvarTodosLivros(listaLivroDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @GetMapping("/buscar/{livroID}")
     public ResponseEntity<LivroDTO> buscarLivroPorId(@PathVariable Integer livroID) throws LivroException {
         return ResponseEntity.ok(livroService.buscarLivroPorId(livroID));
@@ -39,7 +45,7 @@ public class LivroController {
     }
 
     @PutMapping("/atualizar/{livroId}")
-        public ResponseEntity<String> atualizarLivro(@PathVariable Integer livroId, @RequestBody LivroDTO livroDTO) throws LivroException {
+    public ResponseEntity<String> atualizarLivro(@PathVariable Integer livroId, @RequestBody LivroDTO livroDTO) throws LivroException {
         return ResponseEntity.ok(livroService.atualizarLivro(livroId, livroDTO));
     }
 }

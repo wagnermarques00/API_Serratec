@@ -1,4 +1,4 @@
-package org.serratec.bibliotecaDeLivros.dto.config;
+package org.serratec.bibliotecaDeLivros.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -21,13 +21,16 @@ public class ServicoPrestadoController {
     @Autowired
     ServicoPrestadoService servicoPrestadoService;
 
-    @Autowired
-    ServicoPrestadoRepository servicoPrestadoRepository;
-
     //CRUD
     @PostMapping("/salvar")
     public ResponseEntity<String> salvarServico(@RequestBody DTOServicoPrestado servicoPrestadoDTO) throws MessagingException, EmailException {
         return ResponseEntity.ok(servicoPrestadoService.salvarServicoPrestado(servicoPrestadoDTO));
+    }
+
+    @PostMapping("/salvarLista")
+    public ResponseEntity<Void> salvarListaServicosPrestados(@RequestBody List<DTOServicoPrestado> listaServicoPrestadoDTO) throws MessagingException, EmailException {
+        servicoPrestadoService.salvarListaServicosPrestados(listaServicoPrestadoDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/listar")
@@ -56,5 +59,4 @@ public class ServicoPrestadoController {
     public List<DTORelatorio> relatorio5UltimosServicos () {
         return servicoPrestadoService.relatorio5UltimosServicos();
     }
-
 }

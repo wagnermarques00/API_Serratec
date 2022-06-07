@@ -16,12 +16,13 @@ import java.util.Date;
 @Setter
 @Table(name = "livro")
 public class Livro {
-
+    //ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "livro_id")
     private Integer livroId;
 
+    //Variáveis
     @Size(min = 5, max = 30)
     @NotNull
     @Column(name = "livro_titulo")
